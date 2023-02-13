@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe --file docker-stack-v3.yaml convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/convert-vispeahen: "true"
+    io.kompose.service: authorizationserver1
+  name: authorizationserver1
+spec:
+  containers:
+    - env:
+        - name: _CONTEXT
+          value: prod
+        - name: _IP
+          value: http://176.236.152.38/vispeahen/ui
+        - name: _PUBLISH
+          value: onPromise
+      image: nexus.bisoft.com.tr/authorizationserver:v1.8.0
+      name: authorizationserver1
+      resources:
+        limits:
+          cpu: "4"
+          memory: "2147483648"
+  restartPolicy: OnFailure
+status: {}

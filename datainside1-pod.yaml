@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe --file docker-stack-v3.yaml convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/convert-vispeahen: "true"
+    io.kompose.service: datainside1
+  name: datainside1
+spec:
+  containers:
+    - env:
+        - name: _CONTEXT
+          value: prod
+        - name: _PUBLISH
+          value: onPromise
+      image: nexus.bisoft.com.tr/datainside:v2.14.0
+      name: datainside1
+      resources:
+        limits:
+          cpu: 500m
+          memory: "2147483648"
+      volumeMounts:
+        - mountPath: /app/upload_folder
+          name: datainside1-claim0
+  restartPolicy: OnFailure
+  volumes:
+    - name: datainside1-claim0
+      persistentVolumeClaim:
+        claimName: datainside1-claim0
+status: {}

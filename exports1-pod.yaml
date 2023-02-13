@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe --file docker-stack-v3.yaml convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/convert-vispeahen: "true"
+    io.kompose.service: exports1
+  name: exports1
+spec:
+  containers:
+    - image: nexus.bisoft.com.tr/exports:v1.0.0
+      name: exports1
+      resources: {}
+  restartPolicy: OnFailure
+status: {}

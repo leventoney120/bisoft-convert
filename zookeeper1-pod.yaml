@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe --file docker-stack-v3.yaml convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/convert-vispeahen: "true"
+    io.kompose.service: zookeeper1
+  name: zookeeper1
+spec:
+  containers:
+    - image: zookeeper
+      name: zookeeper1
+      ports:
+        - containerPort: 2181
+      resources:
+        limits:
+          cpu: 200m
+          memory: "262144e3"
+      volumeMounts:
+        - mountPath: /data
+          name: zookeeperData
+        - mountPath: /datalog
+          name: zookeeperLog
+  restartPolicy: OnFailure
+  volumes:
+    - name: zookeeperData
+      persistentVolumeClaim:
+        claimName: zookeeperData
+    - name: zookeeperLog
+      persistentVolumeClaim:
+        claimName: zookeeperLog
+status: {}
